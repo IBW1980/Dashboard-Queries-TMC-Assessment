@@ -1,0 +1,18 @@
+WITH hrc_locations AS (
+SELECT state AS hrc_state, count(*) AS hrc_visits 
+FROM [tmc_clinton] 
+group by hrc_state
+order by hrc_visits desc)
+,
+djt_locations AS (
+SELECT state AS djt_state, count(*) AS djt_visits
+FROM [tmc_trump] 
+group by djt_state
+order by djt_visits desc)
+
+SELECT  hrc_state, hrc_visits as hilary_count, djt_visits as donald_count
+from hrc_locations hrc
+join djt_locations djt
+
+ON hrc.hrc_state = djt.djt_state
+ORDER BY hrc.hrc_state DESC
